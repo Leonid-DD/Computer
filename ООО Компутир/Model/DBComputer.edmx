@@ -1,0 +1,654 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище ComputerModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Keyboard">
+          <Key>
+            <PropertyRef Name="KeyboardID" />
+          </Key>
+          <Property Name="KeyboardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyboardName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KeyboardDescription" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Monitor">
+          <Key>
+            <PropertyRef Name="MonitorID" />
+          </Key>
+          <Property Name="MonitorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonitorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MonitorDescription" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Mouse">
+          <Key>
+            <PropertyRef Name="MouseID" />
+          </Key>
+          <Property Name="MouseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MouseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MouseDescription" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="PC">
+          <Key>
+            <PropertyRef Name="PCNumber" />
+          </Key>
+          <Property Name="PCNumber" Type="int" Nullable="false" />
+          <Property Name="PCName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PCCost" Type="money" Nullable="false" />
+          <Property Name="PCDiscount" Type="int" Nullable="false" />
+          <Property Name="PCKeyboardID" Type="int" Nullable="false" />
+          <Property Name="PCMouseID" Type="int" Nullable="false" />
+          <Property Name="PCMonitorID" Type="int" Nullable="false" />
+          <Property Name="PCImagePath" Type="nvarchar" MaxLength="200" />
+          <Property Name="PCDescription" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="PCProgram">
+          <Key>
+            <PropertyRef Name="PCProgramPCNumber" />
+            <PropertyRef Name="PCProgramProgramID" />
+          </Key>
+          <Property Name="PCProgramPCNumber" Type="int" Nullable="false" />
+          <Property Name="PCProgramProgramID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProgramCost" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionUser" Type="int" Nullable="false" />
+          <Property Name="SessionPC" Type="int" Nullable="false" />
+          <Property Name="SessionStartDateTime" Type="datetime" Nullable="false" />
+          <Property Name="SessionEndDateTime" Type="datetime" Nullable="false" />
+          <Property Name="SessionStatus" Type="int" Nullable="false" />
+          <Property Name="SessionComment" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserRegisterDate" Type="date" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PC_Keyboard">
+          <End Role="Keyboard" Type="Self.Keyboard" Multiplicity="1" />
+          <End Role="PC" Type="Self.PC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyboard">
+              <PropertyRef Name="KeyboardID" />
+            </Principal>
+            <Dependent Role="PC">
+              <PropertyRef Name="PCKeyboardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PC_Monitor">
+          <End Role="Monitor" Type="Self.Monitor" Multiplicity="1" />
+          <End Role="PC" Type="Self.PC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monitor">
+              <PropertyRef Name="MonitorID" />
+            </Principal>
+            <Dependent Role="PC">
+              <PropertyRef Name="PCMonitorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PC_Mouse">
+          <End Role="Mouse" Type="Self.Mouse" Multiplicity="1" />
+          <End Role="PC" Type="Self.PC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mouse">
+              <PropertyRef Name="MouseID" />
+            </Principal>
+            <Dependent Role="PC">
+              <PropertyRef Name="PCMouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PCProgram_PC">
+          <End Role="PC" Type="Self.PC" Multiplicity="1" />
+          <End Role="PCProgram" Type="Self.PCProgram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PC">
+              <PropertyRef Name="PCNumber" />
+            </Principal>
+            <Dependent Role="PCProgram">
+              <PropertyRef Name="PCProgramPCNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PCProgram_Program">
+          <End Role="Program" Type="Self.Program" Multiplicity="1" />
+          <End Role="PCProgram" Type="Self.PCProgram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="PCProgram">
+              <PropertyRef Name="PCProgramProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Session_PC">
+          <End Role="PC" Type="Self.PC" Multiplicity="1" />
+          <End Role="Session" Type="Self.Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PC">
+              <PropertyRef Name="PCNumber" />
+            </Principal>
+            <Dependent Role="Session">
+              <PropertyRef Name="SessionPC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Session_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Session" Type="Self.Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Session">
+              <PropertyRef Name="SessionStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Session_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Session" Type="Self.Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Session">
+              <PropertyRef Name="SessionUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ComputerModelContainer">
+          <EntitySet Name="Keyboard" EntityType="Self.Keyboard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monitor" EntityType="Self.Monitor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mouse" EntityType="Self.Mouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PC" EntityType="Self.PC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PCProgram" EntityType="Self.PCProgram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PC_Keyboard" Association="Self.FK_PC_Keyboard">
+            <End Role="Keyboard" EntitySet="Keyboard" />
+            <End Role="PC" EntitySet="PC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PC_Monitor" Association="Self.FK_PC_Monitor">
+            <End Role="Monitor" EntitySet="Monitor" />
+            <End Role="PC" EntitySet="PC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PC_Mouse" Association="Self.FK_PC_Mouse">
+            <End Role="Mouse" EntitySet="Mouse" />
+            <End Role="PC" EntitySet="PC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PCProgram_PC" Association="Self.FK_PCProgram_PC">
+            <End Role="PC" EntitySet="PC" />
+            <End Role="PCProgram" EntitySet="PCProgram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PCProgram_Program" Association="Self.FK_PCProgram_Program">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="PCProgram" EntitySet="PCProgram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Session_PC" Association="Self.FK_Session_PC">
+            <End Role="PC" EntitySet="PC" />
+            <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Session_Status" Association="Self.FK_Session_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Session_User" Association="Self.FK_Session_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComputerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Keyboard">
+          <Key>
+            <PropertyRef Name="KeyboardID" />
+          </Key>
+          <Property Name="KeyboardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyboardName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KeyboardDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PC" Relationship="Self.FK_PC_Keyboard" FromRole="Keyboard" ToRole="PC" />
+        </EntityType>
+        <EntityType Name="Monitor">
+          <Key>
+            <PropertyRef Name="MonitorID" />
+          </Key>
+          <Property Name="MonitorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonitorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonitorDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PC" Relationship="Self.FK_PC_Monitor" FromRole="Monitor" ToRole="PC" />
+        </EntityType>
+        <EntityType Name="Mouse">
+          <Key>
+            <PropertyRef Name="MouseID" />
+          </Key>
+          <Property Name="MouseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MouseDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PC" Relationship="Self.FK_PC_Mouse" FromRole="Mouse" ToRole="PC" />
+        </EntityType>
+        <EntityType Name="PC">
+          <Key>
+            <PropertyRef Name="PCNumber" />
+          </Key>
+          <Property Name="PCNumber" Type="Int32" Nullable="false" />
+          <Property Name="PCName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PCCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PCDiscount" Type="Int32" Nullable="false" />
+          <Property Name="PCKeyboardID" Type="Int32" Nullable="false" />
+          <Property Name="PCMouseID" Type="Int32" Nullable="false" />
+          <Property Name="PCMonitorID" Type="Int32" Nullable="false" />
+          <Property Name="PCImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PCDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Keyboard" Relationship="Self.FK_PC_Keyboard" FromRole="PC" ToRole="Keyboard" />
+          <NavigationProperty Name="Monitor" Relationship="Self.FK_PC_Monitor" FromRole="PC" ToRole="Monitor" />
+          <NavigationProperty Name="Mouse" Relationship="Self.FK_PC_Mouse" FromRole="PC" ToRole="Mouse" />
+          <NavigationProperty Name="Session" Relationship="Self.FK_Session_PC" FromRole="PC" ToRole="Session" />
+          <NavigationProperty Name="Program" Relationship="Self.PCProgram" FromRole="PC" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProgramCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="PC" Relationship="Self.PCProgram" FromRole="Program" ToRole="PC" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionUser" Type="Int32" Nullable="false" />
+          <Property Name="SessionPC" Type="Int32" Nullable="false" />
+          <Property Name="SessionStartDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SessionEndDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SessionStatus" Type="Int32" Nullable="false" />
+          <Property Name="SessionComment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PC" Relationship="Self.FK_Session_PC" FromRole="Session" ToRole="PC" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Session_Status" FromRole="Session" ToRole="Status" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Session_User" FromRole="Session" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Session" Relationship="Self.FK_Session_Status" FromRole="Status" ToRole="Session" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRegisterDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Session" Relationship="Self.FK_Session_User" FromRole="User" ToRole="Session" />
+          <Property Name="UserRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="ComputerModel.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_PC_Keyboard">
+          <End Role="Keyboard" Type="Self.Keyboard" Multiplicity="1" />
+          <End Role="PC" Type="Self.PC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyboard">
+              <PropertyRef Name="KeyboardID" />
+            </Principal>
+            <Dependent Role="PC">
+              <PropertyRef Name="PCKeyboardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PC_Monitor">
+          <End Role="Monitor" Type="Self.Monitor" Multiplicity="1" />
+          <End Role="PC" Type="Self.PC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monitor">
+              <PropertyRef Name="MonitorID" />
+            </Principal>
+            <Dependent Role="PC">
+              <PropertyRef Name="PCMonitorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PC_Mouse">
+          <End Role="Mouse" Type="Self.Mouse" Multiplicity="1" />
+          <End Role="PC" Type="Self.PC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mouse">
+              <PropertyRef Name="MouseID" />
+            </Principal>
+            <Dependent Role="PC">
+              <PropertyRef Name="PCMouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Session_PC">
+          <End Role="PC" Type="Self.PC" Multiplicity="1" />
+          <End Role="Session" Type="Self.Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PC">
+              <PropertyRef Name="PCNumber" />
+            </Principal>
+            <Dependent Role="Session">
+              <PropertyRef Name="SessionPC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Session_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Session" Type="Self.Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Session">
+              <PropertyRef Name="SessionStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Session_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Session" Type="Self.Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Session">
+              <PropertyRef Name="SessionUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PCProgram">
+          <End Role="PC" Type="Self.PC" Multiplicity="*" />
+          <End Role="Program" Type="Self.Program" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DBComputer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Keyboard" EntityType="Self.Keyboard" />
+          <EntitySet Name="Monitor" EntityType="Self.Monitor" />
+          <EntitySet Name="Mouse" EntityType="Self.Mouse" />
+          <EntitySet Name="PC" EntityType="Self.PC" />
+          <EntitySet Name="Program" EntityType="Self.Program" />
+          <EntitySet Name="Session" EntityType="Self.Session" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_PC_Keyboard" Association="Self.FK_PC_Keyboard">
+            <End Role="Keyboard" EntitySet="Keyboard" />
+            <End Role="PC" EntitySet="PC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PC_Monitor" Association="Self.FK_PC_Monitor">
+            <End Role="Monitor" EntitySet="Monitor" />
+            <End Role="PC" EntitySet="PC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PC_Mouse" Association="Self.FK_PC_Mouse">
+            <End Role="Mouse" EntitySet="Mouse" />
+            <End Role="PC" EntitySet="PC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Session_PC" Association="Self.FK_Session_PC">
+            <End Role="PC" EntitySet="PC" />
+            <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Session_Status" Association="Self.FK_Session_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Session_User" Association="Self.FK_Session_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="PCProgram" Association="Self.PCProgram">
+            <End Role="PC" EntitySet="PC" />
+            <End Role="Program" EntitySet="Program" />
+          </AssociationSet>
+          <EntitySet Name="Role" EntityType="ComputerModel.Role" />
+          <AssociationSet Name="FK_User_Role" Association="ComputerModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ComputerModel.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Role">
+          <End Type="ComputerModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="ComputerModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ComputerModelContainer" CdmEntityContainer="DBComputer">
+          <EntitySetMapping Name="Keyboard">
+            <EntityTypeMapping TypeName="ComputerModel.Keyboard">
+              <MappingFragment StoreEntitySet="Keyboard">
+                <ScalarProperty Name="KeyboardID" ColumnName="KeyboardID" />
+                <ScalarProperty Name="KeyboardName" ColumnName="KeyboardName" />
+                <ScalarProperty Name="KeyboardDescription" ColumnName="KeyboardDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monitor">
+            <EntityTypeMapping TypeName="ComputerModel.Monitor">
+              <MappingFragment StoreEntitySet="Monitor">
+                <ScalarProperty Name="MonitorID" ColumnName="MonitorID" />
+                <ScalarProperty Name="MonitorName" ColumnName="MonitorName" />
+                <ScalarProperty Name="MonitorDescription" ColumnName="MonitorDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mouse">
+            <EntityTypeMapping TypeName="ComputerModel.Mouse">
+              <MappingFragment StoreEntitySet="Mouse">
+                <ScalarProperty Name="MouseID" ColumnName="MouseID" />
+                <ScalarProperty Name="MouseName" ColumnName="MouseName" />
+                <ScalarProperty Name="MouseDescription" ColumnName="MouseDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PC">
+            <EntityTypeMapping TypeName="ComputerModel.PC">
+              <MappingFragment StoreEntitySet="PC">
+                <ScalarProperty Name="PCNumber" ColumnName="PCNumber" />
+                <ScalarProperty Name="PCName" ColumnName="PCName" />
+                <ScalarProperty Name="PCCost" ColumnName="PCCost" />
+                <ScalarProperty Name="PCDiscount" ColumnName="PCDiscount" />
+                <ScalarProperty Name="PCKeyboardID" ColumnName="PCKeyboardID" />
+                <ScalarProperty Name="PCMouseID" ColumnName="PCMouseID" />
+                <ScalarProperty Name="PCMonitorID" ColumnName="PCMonitorID" />
+                <ScalarProperty Name="PCImagePath" ColumnName="PCImagePath" />
+                <ScalarProperty Name="PCDescription" ColumnName="PCDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Program">
+            <EntityTypeMapping TypeName="ComputerModel.Program">
+              <MappingFragment StoreEntitySet="Program">
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+                <ScalarProperty Name="ProgramCost" ColumnName="ProgramCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Session">
+            <EntityTypeMapping TypeName="ComputerModel.Session">
+              <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="SessionUser" ColumnName="SessionUser" />
+                <ScalarProperty Name="SessionPC" ColumnName="SessionPC" />
+                <ScalarProperty Name="SessionStartDateTime" ColumnName="SessionStartDateTime" />
+                <ScalarProperty Name="SessionEndDateTime" ColumnName="SessionEndDateTime" />
+                <ScalarProperty Name="SessionStatus" ColumnName="SessionStatus" />
+                <ScalarProperty Name="SessionComment" ColumnName="SessionComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="ComputerModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ComputerModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ComputerModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserRegisterDate" ColumnName="UserRegisterDate" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PCProgram" TypeName="ComputerModel.PCProgram" StoreEntitySet="PCProgram">
+            <EndProperty Name="PC">
+              <ScalarProperty Name="PCNumber" ColumnName="PCProgramPCNumber" />
+            </EndProperty>
+            <EndProperty Name="Program">
+              <ScalarProperty Name="ProgramID" ColumnName="PCProgramProgramID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="ComputerModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

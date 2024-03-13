@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f2d13c692c5045559e54c5347113481b" Name="Diagram1">
+        <EntityTypeShape EntityType="ComputerModel.Keyboard" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.Monitor" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.Mouse" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.PC" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.Program" Width="1.5" PointX="6.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.Session" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.Status" Width="1.5" PointX="6" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerModel.User" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="ComputerModel.FK_PC_Keyboard" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerModel.FK_PC_Monitor" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerModel.FK_PC_Mouse" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerModel.FK_Session_PC" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerModel.FK_Session_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerModel.FK_Session_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerModel.PCProgram" ManuallyRouted="false" ></AssociationConnector>
+        <EntityTypeShape EntityType="ComputerModel.Role" Width="1.5" PointX="3.75" PointY="11.5" />
+        <AssociationConnector Association="ComputerModel.FK_User_Role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
