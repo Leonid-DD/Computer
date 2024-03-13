@@ -11,15 +11,7 @@ namespace ООО_Компутир.Classes
 
         public Model.Session Session { get; set; }
 
-        public PCExtended PCExt
-        {
-            get
-            {
-                Classes.PCExtended PCExt = new Classes.PCExtended();
-                PCExt.PC = this.Session.PC;
-                return PCExt;
-            }
-        }
+        public PCExtended PCExt;
 
 
         public double SessionLength 
@@ -34,7 +26,7 @@ namespace ООО_Компутир.Classes
         {
             get
             {
-                return this.PCExt.PCResultCost * this.SessionLength;
+                return this.PCExt.PCDiscountCost * this.SessionLength;
             }
         }
 

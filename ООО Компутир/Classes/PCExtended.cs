@@ -12,6 +12,8 @@ namespace ООО_Компутир.Classes
 
         public Model.PC PC { get; set; }
 
+        public List<Model.Program> programs;
+
         public string PCImagePath
         {
             get
@@ -33,7 +35,6 @@ namespace ООО_Компутир.Classes
         {
             get
             {
-                List<Model.Program> programs = Helper.DB.Program.ToList();
                 double resultCost = (double)this.PC.PCCost;
                 foreach (Model.Program program in programs)
                 {

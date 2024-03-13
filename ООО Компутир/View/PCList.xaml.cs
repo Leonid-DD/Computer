@@ -152,6 +152,7 @@ namespace ООО_Компутир.View
             {
                 PCExtended PCExt = new PCExtended();
                 PCExt.PC = PC;
+                PCExt.programs = Helper.DB.Program.ToList();
                 listPCExt.Add(PCExt);
             }
 

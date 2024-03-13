@@ -28,6 +28,8 @@ namespace ООО_Компутир.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            tbUserName.Text = "Пользователь: " + Helper.User.UserName;
+
             List<Session> sessions = Helper.DB.Session.ToList();
             List<Classes.SessionExtended> sessionsExt = new List<SessionExtended>();
 
@@ -37,6 +39,11 @@ namespace ООО_Компутир.View
                 {
                     SessionExtended sessionExt = new SessionExtended();
                     sessionExt.Session = session;
+
+                    PC pc = Helper.DB.PC.ToList().Where(p => p.PCNumber == session.SessionPC).FirstOrDefault();
+                    PCExtended pcExt = new PCExtended { PC = pc, programs = Helper.DB.Program.ToList() };
+
+                    sessionExt.PCExt = pcExt;
                     sessionsExt.Add(sessionExt);
                 }
             }
